@@ -4,27 +4,28 @@ import info.gridworld.grid.Location;
 
 public class Cell
 {
+    /* The minefield the cell is located in. */
     private MineField field;
+    /* The location on the minefield this cell occupies. */
     private Location loc;
-    private Color color;
     
+    /* True if the cell is a mine, false if not. */
     private boolean isMine; 
+    /* True if the cell has been selected and revealed, false if user has not yet interacted with it. */
     private boolean selected = false;
 
     /**
      * Initializes cell, determines if it's a mine using a random number generator
      *
-     * @param mfield A parameter
-     * @param cellLoc A parameter
-     * @param col A parameter
+     * @param mfield the MineField the cell is on
+     * @param cellLoc the location of the cell on the MineField
      */
-    public Cell(MineField mfield, Location cellLoc, Color col)
+    public Cell(MineField mfield, Location cellLoc)
     {
         field = mfield;
         loc = cellLoc;
-        color = col;
         
-        if (Math.random() > 0.8) 
+        if (Math.random() > 0.75) 
         {
             isMine = true;
         } 
@@ -34,19 +35,30 @@ public class Cell
         }
     }
     
-    //Returns true if this tile is a mine
+    /**
+     * Returns true if this cell is a mine, returns false if it is not
+     *
+     * @return the boolean isMine which determines whether or not the cell is a mine
+     */
     public boolean isMine()
     {
         return isMine;
     }
     
-    //Returns true if cell has be clicked
+    /**
+     * Returns true if this cell has been selected, false if is has not been 
+     *
+     * @return the boolean selected which determines whether or not the cell has been selected
+     */
     public boolean isSelected() 
     {
         return selected;
     }
     
-    //Sets shown to true allowing getText to do it's job, if it's a mine we call the gameOver() method
+    /**
+     * Sets the instance variable selected to true, activating getText() and getColor(). Also calls gameOver is the selected cell is a mine.
+     *
+     */
     public void select() 
     {
         selected = true;
@@ -57,15 +69,22 @@ public class Cell
         }
     }
     
-    //Returns location of mine
+    /**
+     * Returns the location of the cell
+     *
+     * @return the location of the cell
+     */
     public Location getLocation() 
     {
         return loc;
     }
     
-    //Determines what the tile should say
-    //If the tile is a mine, we set the text to XX. If it hasn't been clicked we set it to an
-    //asterisk. If it has been clicked and isn't a mine, we determine how many mines are around it.
+    /**
+     * Returns a String that is displayed on the cell: blank for an unselected cell, X for a selected mine, 
+     * or the number of adjacent mines for a selected empty cell
+     *
+     * @return a String that determines what text is shown on the cell
+     */
     public String getText()
     {
         if (selected && !isMine) 
@@ -93,15 +112,24 @@ public class Cell
         }
     }
     
+    /**
+     * Determines the color of the cell: white if the cell is unselected, green if it is selected and empty, red if it is selected and a mine
+     *
+     * @return the color of the cell
+     */
     public Color getColor()
     {
         if (selected && isMine) 
         {
             return Color.RED;
         } 
-        else 
+        else if (selected && !isMine)
         {
             return Color.GREEN;
         } 
+        else
+        {
+            return Color.WHITE;
+        }
     }
 }

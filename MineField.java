@@ -1,8 +1,6 @@
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
-
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class MineField extends World<Cell>
@@ -17,6 +15,7 @@ public class MineField extends World<Cell>
     public MineField(BoundedGrid<Cell> field)
     {
         super(field);
+        populateGame();
     }
 
     /**
@@ -39,10 +38,26 @@ public class MineField extends World<Cell>
     }
 
     /**
+     * Adds a cell with a random chance of being a mine to each location of the minefield
+     *
+     */
+    public void populateGame()
+    {
+        for (int r = 0; r < this.getGrid().getNumRows(); r++) 
+        {
+            for (int c = 0; c < this.getGrid().getNumCols(); c++) 
+            {
+                Location temp = new Location(r, c);
+                this.add(temp, new Cell(this, temp));
+            }
+        }
+    }
+    
+    /**
      * Checks if the player has won.
      *
      */
-    private void checkWin() 
+    public void checkWin() 
     {
         ArrayList<Location> mines = this.getGrid().getOccupiedLocations();
         int notMines = 0;
@@ -56,7 +71,7 @@ public class MineField extends World<Cell>
             {
                 selectedCells++;
             }
-            else if (!c.isMine()) 
+            if (!c.isMine()) 
             {
                 notMines++;
             }
@@ -68,8 +83,6 @@ public class MineField extends World<Cell>
         }
     }
 
-    //Iterates through all tiles, showing them so the user can see tiles with mines
-    //boolean determines if the user won or lost
     /**
      * Ends game by revealing the state of all cells and displaying message saying whether user has won or lost.
      *
@@ -97,31 +110,19 @@ public class MineField extends World<Cell>
         ArrayList<Location> locations = this.getGrid().getOccupiedLocations();
         for (Location loc : locations) 
         {
-            Cell tile = (Cell)this.getGrid().get(loc);
-            tile.select();
+            Cell cell = (Cell)this.getGrid().get(loc);
+            cell.select();
         }
     }
     
     /**
-     * Method main
+     * Creates a new 10x10 minefield, starts the game
      *
-     * @param args A parameter
      */
-    public static void main(String[] args)
+    public static void main()
     {
         MineField field = new MineField(new BoundedGrid<Cell>(10, 10));
-        
-        //Randomly add in tiles
-        for (int r = 0; r < field.getGrid().getNumRows(); r++) 
-        {
-            for (int c = 0; c < field.getGrid().getNumCols(); c++) 
-            {
-                Location tempLoc = new Location(r, c);
-                field.add(tempLoc, new Cell(field, tempLoc, Color.GREEN));
-            }
-        }
-
-        field.setMessage("Welcome to Minesweeper"); 
+        field.setMessage("Welcome to Minesweeper! Please click on a cell."); 
         field.show();
     }
 }

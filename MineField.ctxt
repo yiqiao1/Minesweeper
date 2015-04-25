@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=field
+comment0.target=MineField(info.gridworld.grid.BoundedGrid)
+comment0.text=\r\n\ MineField\ Constructor\r\n\r\n\ @param\ field\ a\ BoundedGrid<Cell>\r\n
+comment1.params=loc
+comment1.target=boolean\ locationClicked(info.gridworld.grid.Location)
+comment1.text=\r\n\ When\ a\ mine\ cell\ is\ clicked,\ this\ method\ calls\ its\ select\ method\ and\ checks\ if\ the\ game\ is\ won.\r\n\r\n\ @param\ loc\ the\ location\ of\ the\ cell\ clicked\r\n\ @return\ always\ returns\ true\ if\ the\ world\ consumes\ the\ click\r\n
+comment2.params=
+comment2.target=void\ populateGame()
+comment2.text=\r\n\ Adds\ a\ cell\ with\ a\ random\ chance\ of\ being\ a\ mine\ to\ each\ location\ of\ the\ minefield\r\n\r\n
+comment3.params=
+comment3.target=void\ checkWin()
+comment3.text=\r\n\ Checks\ if\ the\ player\ has\ won.\r\n\r\n
+comment4.params=win
+comment4.target=void\ gameOver(boolean)
+comment4.text=\r\n\ Ends\ game\ by\ revealing\ the\ state\ of\ all\ cells\ and\ displaying\ message\ saying\ whether\ user\ has\ won\ or\ lost.\r\n\r\n\ @param\ win\ a\ boolean\ that\ means\ user\ has\ won\ the\ game\ if\ true\ and\ means\ user\ has\ lost\ the\ game\ if\ false\r\n
+comment5.params=
+comment5.target=void\ main()
+comment5.text=\r\n\ Creates\ a\ new\ 10x10\ minefield,\ starts\ the\ game\r\n\r\n
+numComments=6
