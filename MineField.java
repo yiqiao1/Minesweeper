@@ -101,7 +101,7 @@ public class MineField extends World<Cell>
             setMessage("GAME OVER! You win!");
         }
         // lose game
-        else if (!(gameOver && win))
+        else if (!(gameOver || win))
         {
             setMessage("GAME OVER! You lose!");
         }
